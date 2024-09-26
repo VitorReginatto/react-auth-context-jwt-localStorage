@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-
+import {api} from'../api/api'
 const Products = () => {
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    const [products, setProducts] = useState([]);
 
     const fetchProducts = async () => {
       try {
-        const response = await api.post("/products");
+        const response = await api.get("/products");
         setProducts(response.data.products);
       } catch (error) {
         console.error("Error fetching products", error);
@@ -35,8 +35,21 @@ const Products = () => {
           </tr>
         </thead>
         <tbody>
-
-
+          {products.length > 0 ? (
+            products.map(product => (
+              <tr key={product.id}> {/* Supondo que cada produto tem um id único */}
+                <td>{product.id}</td>
+                <td>{product.title}</td>
+                <td>{product.description}</td>
+                <td>{product.category}</td>
+                <td>{product.price}</td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan={5}>Nenhum produto encontrado.</td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>
