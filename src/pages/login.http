@@ -1,8 +1,0 @@
-POST https://dummyjson.com/auth/login
-content-type: application/json
-
-{
-    "username": "emilys",
-    "password": "emilyspass",
-     "expiresInMins": 30  
-}

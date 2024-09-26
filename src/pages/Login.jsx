@@ -1,40 +1,77 @@
-import React, { useContext, useState } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { useForm } from "react-hook-form";
+import { useContext } from "react";
+import { AuthContext } from "../contexts/AuthContext";
+import { Navigate } from "react-router-dom";
 
-const LoginPage = () => {
+const Login = () => {
+  const { login, isAuthenticated, loading } = useContext(AuthContext);
 
-  const { sigIn} = useContext(AuthContext)
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isSubmitting },
+  } = useForm();
+  const onSubmit = async (data) => {
+    try {
+      await login(data);
+    } catch (error) {
+      console.error(error.message);
+    }
 
-  const [username, setUsername] = useState('emilys');
-  const [password, setPassword] = useState('emilyspass');
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await sigIn(username, password);
+    reset();
   };
 
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     navigate("/");
+  //   }
+  // }, [isAuthenticated, navigate]);
+
+  if (loading) {
+    return <span>carregando...</span>;
+  }
+
+  if (isAuthenticated) {
+    return <Navigate to={"/"} />;
+  }
+
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          placeholder="username"
-          required
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Senha"
-          required
-        />
-        <button type="submit">Entrar</button>
+    <>
+      <h2 style={{ textAlign: "center" }}>Login</h2>
+
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        style={{ display: "flex", flexDirection: "column", gap: "12px" }}
+      >
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <label htmlFor="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            placeholder="username"
+            value={"emilys"}
+            {...register("username")}
+          />
+        </div>
+
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="password"
+            value={"emilyspass"}
+            {...register("password")}
+          />
+        </div>
+
+        <button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Loading..." : "Enviar"}
+        </button>
       </form>
-    </div>
+    </>
   );
 };
 
-export default LoginPage;
+export default Login;
