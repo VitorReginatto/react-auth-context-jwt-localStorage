@@ -17,6 +17,7 @@ const HomePage = () => {
       {user && (
         <div>
             <Link to="/produtos">Produtos</Link>
+            <Link to="/usuario">Usuario</Link>
           <p>Profile Pic:</p>
           <img src={user.image} alt="" />
           <p>

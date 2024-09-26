@@ -5,6 +5,7 @@ import Privada from "../pages/Privada";
 import Login from "../pages/Login";
 import NotFound from "../components/404";
 import Products from "../pages/Products";
+import User from "../pages/User";
 
 export const routes = createBrowserRouter([
   {
@@ -18,6 +19,7 @@ export const routes = createBrowserRouter([
       { path: "/", element: <HomePage /> },
       { path: "/privada", element: <Privada /> },
       { path: "/produtos", element: <Products /> },
+      { path: "/usuario", element: <User /> },
     ],
   },
   { path: "/login", element: <Login /> },

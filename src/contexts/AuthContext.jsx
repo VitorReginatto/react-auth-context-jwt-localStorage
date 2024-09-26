@@ -2,6 +2,7 @@
 
 import { createContext, useEffect, useState } from "react";
 import { api } from "../api/api";
+import { Navigate } from "react-router-dom";
 
 export const AuthContext = createContext();
 
@@ -32,6 +33,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("user", JSON.stringify(user));
       setUser(user);
+      //api.defaults.headers['Authorization'] = `Bearer ${accessToken}`;
     } catch (error) {
       setErrors(error.message);
     }
@@ -50,8 +52,8 @@ export const AuthProvider = ({ children }) => {
       setToken(storedToken);
       setIsAuthenticated(true);
       const userData = JSON.parse(localStorage.getItem("user"));
-      api.defaults.headers['Authorization'] = `Bearer ${storedToken}`;
-
+      //api.defaults.headers['Authorization'] = `Bearer ${storedToken}`;
+      console.log('Oi')
       setUser(userData);
     }
 
