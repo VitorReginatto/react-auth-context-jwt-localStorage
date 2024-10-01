@@ -8,7 +8,7 @@ export const api = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
-/* api.interceptors.request.use(
+ api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('accessToken');  
     if (token) {
@@ -19,4 +19,4 @@ export const api = axios.create({
   (error) => {
     return Promise.reject(error);
   }
-); */
+); 

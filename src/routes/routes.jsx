@@ -1,7 +1,6 @@
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import ProtectedRoute from "../components/ProtectedRoute";
 import HomePage from "../pages/HomePage";
-import Privada from "../pages/Privada";
 import Login from "../pages/Login";
 import NotFound from "../components/404";
 import Products from "../pages/Products";
@@ -17,7 +16,6 @@ export const routes = createBrowserRouter([
     ),
     children: [
       { path: "/", element: <HomePage /> },
-      { path: "/privada", element: <Privada /> },
       { path: "/produtos", element: <Products /> },
       { path: "/usuario", element: <User /> },
     ],

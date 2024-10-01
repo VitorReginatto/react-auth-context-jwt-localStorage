@@ -52,11 +52,15 @@ export const AuthProvider = ({ children }) => {
       setToken(storedToken);
       setIsAuthenticated(true);
       const userData = JSON.parse(localStorage.getItem("user"));
-      //api.defaults.headers['Authorization'] = `Bearer ${storedToken}`;
-      console.log('Oi')
+      api.defaults.headers['Authorization'] = `Bearer ${storedToken}`;
+      console.log('Token Salvo com Sucesso')
       setUser(userData);
+    } else {
+      setToken(null);
+      setIsAuthenticated(false);
+      setUser(null);
+      api.defaults.headers['Authorization'] = null;
     }
-
     setLoading(false);
   }, []);
 

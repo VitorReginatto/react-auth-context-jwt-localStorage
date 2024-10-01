@@ -18,6 +18,18 @@ const User = () => {
     fetchUser();
   }, []);
 
+
+  async function handleUser() {
+    setUser({})
+    console.log("handleUser")
+    try {
+      const response = await api.get("/auth/me");
+      setUser(response.data);
+    } catch (error) {
+      console.error("Error fetching products", error);
+    }
+  }
+
   return (
 
 
@@ -38,6 +50,7 @@ const User = () => {
           </tr>
         </thead>
         <tbody>
+          <button onClick={handleUser}>Buscar</button>
 
         </tbody>
       </table>
