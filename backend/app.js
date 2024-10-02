@@ -12,6 +12,7 @@ morganConfig.morgan(app);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+
 // Rotas
 const AuthRoutes = require('./src/routes/AuthRoutes')
 
