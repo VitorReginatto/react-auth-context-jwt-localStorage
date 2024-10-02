@@ -8,7 +8,7 @@ const loginLimiter = rateLimit({
 
 const AuthController = require('../controllers/AuthController');
 router.post("/signin", AuthController.signin)
-router.get("/getUserAuth", AuthController.getUserAuth)
+router.get("/getAuthenticatedUser", AuthController.getAuthenticatedUser)
 
 
 module.exports = router

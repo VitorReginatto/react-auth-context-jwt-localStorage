@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
 
   const getUser = async () => {
     try {
-      const response = await api.get("/auth/getUserAuth");
+      const response = await api.get("/auth/getAuthenticatedUser");
 
       if (response.status !== 200) {
         throw new Error("Not authorized");

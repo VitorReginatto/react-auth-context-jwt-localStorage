@@ -18,7 +18,7 @@ module.exports = class AuthController {
             res.status(500).json({ message: "Erro ao logar", error: error.message });
         }
     }
-    static async getUserAuth(req, res) {
+    static async getAuthenticatedUser(req, res) {
         try {
             const token = req.headers.authorization && req.headers.authorization.split(" ")[1];
             if (!token) {
