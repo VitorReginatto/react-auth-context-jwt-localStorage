@@ -2,8 +2,12 @@ import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { api } from '../api/api'
+import LoadingSpinner from "../components/LoadingSpinner";
+
+
 const Products = () => {
   const [products, setProducts] = useState([]);
+  const [ loading, setLoading ] = useState(true);
 
   useEffect(() => {
 
@@ -13,11 +17,20 @@ const Products = () => {
         setProducts(response.data.products);
       } catch (error) {
         console.error("Error fetching products", error);
+      }finally{
+        setLoading(false);
       }
     }
 
     fetchProducts();
   }, []);
+
+
+  if (loading) {
+    //return <span>carregando...</span>;
+    return <LoadingSpinner />;
+
+  }
 
   return (
 
@@ -25,7 +38,8 @@ const Products = () => {
     <div>
       <Link to="/">Home</Link>
       <p>Produtos</p>
-      <table>
+      {loading ? <LoadingSpinner/>:
+       (<table>
         <thead>
           <tr>
             <th>Código</th>
@@ -35,7 +49,7 @@ const Products = () => {
             <th>Preço</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody > 
           {products.length > 0 ? (
             products.map(product => (
               <tr key={product.id}>
@@ -52,7 +66,7 @@ const Products = () => {
             </tr>
           )}
         </tbody>
-      </table>
+      </table>)}
     </div>
   );
 };

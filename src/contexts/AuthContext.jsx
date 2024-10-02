@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("user", JSON.stringify(user));
       setUser(user);
-      //api.defaults.headers['Authorization'] = `Bearer ${accessToken}`;
+      api.defaults.headers['Authorization'] = `Bearer ${accessToken}`;
     } catch (error) {
       setErrors(error.message);
     }
@@ -53,7 +53,6 @@ export const AuthProvider = ({ children }) => {
       setIsAuthenticated(true);
       const userData = JSON.parse(localStorage.getItem("user"));
       api.defaults.headers['Authorization'] = `Bearer ${storedToken}`;
-      console.log('Token Salvo com Sucesso')
       setUser(userData);
     } else {
       setToken(null);
@@ -62,11 +61,13 @@ export const AuthProvider = ({ children }) => {
       api.defaults.headers['Authorization'] = null;
     }
     setLoading(false);
+
+    
   }, []);
 
   return (
     <AuthContext.Provider
-      value={{ user, login, token, errors, loading, isAuthenticated, logout }}
+      value={{ user, login, token, errors, loading,setLoading, isAuthenticated, logout }}
     >
       {children}
     </AuthContext.Provider>
