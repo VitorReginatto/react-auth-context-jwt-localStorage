@@ -13,8 +13,8 @@ const Products = () => {
 
     const fetchProducts = async () => {
       try {
-        const response = await api.get("/products");
-        setProducts(response.data.products);
+        const response = await api.get("/products/getAllProducts");
+        setProducts(response.data);
       } catch (error) {
         console.error("Error fetching products", error);
       }finally{
@@ -36,38 +36,33 @@ const Products = () => {
 
 
     <div>
-      <Link to="/">Home</Link>
-      <p>Produtos</p>
-      {loading ? <LoadingSpinner/>:
-       (<table>
-        <thead>
-          <tr>
-            <th>Código</th>
-            <th>Nome</th>
-            <th>Descrição</th>
-            <th>Categoria</th>
-            <th>Preço</th>
-          </tr>
-        </thead>
-        <tbody > 
-          {products.length > 0 ? (
-            products.map(product => (
-              <tr key={product.id}>
-                <td>{product.id}</td>
-                <td>{product.title}</td>
-                <td>{product.description}</td>
-                <td>{product.category}</td>
-                <td>{product.price}</td>
+    {loading ? <LoadingSpinner /> :
+      (<div className="h-screen w-screen flex justify-center items-center bg-gray-50 dark:bg-gray-900">
+        <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-6">
+          <Link to="/" className="text-blue-500 hover:underline mb-4 block">Home</Link>
+          <p className="text-lg font-semibold mb-4 text-gray-700 dark:text-gray-300">Produtos</p>
+          <table className="w-full text-left text-sm text-gray-500 dark:text-gray-400">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th scope="col" className="px-4 py-2">Código</th>
+                <th scope="col" className="px-4 py-2">Nome</th>
+                <th scope="col" className="px-4 py-2">Preço</th>
               </tr>
-            ))
-          ):(
-            <tr>
-              <td colSpan={5}>Nenhum produto encontrado.</td>
-            </tr>
-          )}
-        </tbody>
-      </table>)}
-    </div>
+            </thead>
+            <tbody>
+              {products.map(product => ( // Usando 'map' para iterar sobre 'products'
+                <tr key={product.id} className="border-b bg-white dark:bg-gray-800 dark:border-gray-700">
+                  <td className="px-4 py-2">{product.id}</td>
+                  <td className="px-4 py-2">{product.name}</td>
+                  <td className="px-4 py-2">{product.price}</td> {/* Supondo que o produto tem uma propriedade 'price' */}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+         
+        </div>
+      </div>)}
+  </div>
   );
 };
 

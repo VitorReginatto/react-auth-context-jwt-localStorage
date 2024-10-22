@@ -7,8 +7,9 @@ const loginLimiter = rateLimit({
 });
 
 const AuthController = require('../controllers/AuthController');
+const { verifyToken } = require("../middlewares/AuthMiddleware");
+
 router.post("/signin", AuthController.signin)
 router.get("/getAuthenticatedUser", AuthController.getAuthenticatedUser)
-
 
 module.exports = router
